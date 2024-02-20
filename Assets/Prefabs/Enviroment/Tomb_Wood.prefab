@@ -11,12 +11,12 @@ PrefabInstance:
     - target: {fileID: 1753159082647967501, guid: 4752b93b7403bd749b626c48e69f6496,
         type: 3}
       propertyPath: m_Name
-      value: Tomb_Wood Variant
+      value: Tomb_Wood
       objectReference: {fileID: 0}
     - target: {fileID: 8415584598377984460, guid: 4752b93b7403bd749b626c48e69f6496,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.946199
+      value: -21.206633
       objectReference: {fileID: 0}
     - target: {fileID: 8415584598377984460, guid: 4752b93b7403bd749b626c48e69f6496,
         type: 3}
@@ -26,7 +26,7 @@ PrefabInstance:
     - target: {fileID: 8415584598377984460, guid: 4752b93b7403bd749b626c48e69f6496,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -25.905424
+      value: -30.230381
       objectReference: {fileID: 0}
     - target: {fileID: 8415584598377984460, guid: 4752b93b7403bd749b626c48e69f6496,
         type: 3}
@@ -145,8 +145,39 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 897326646ebb8a14c9f740e52f130735,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1858955767578309488}
   m_SourcePrefab: {fileID: 100100000, guid: 897326646ebb8a14c9f740e52f130735, type: 3}
+--- !u!1 &1317487732698696408 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 897326646ebb8a14c9f740e52f130735,
+    type: 3}
+  m_PrefabInstance: {fileID: 2200502979889330057}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1858955767578309488
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317487732698696408}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.59280014, y: 0.25346553, z: 1.0000002}
+  m_Center: {x: 8.470338e-22, y: 0.12673277, z: 0.00000029802322}
 --- !u!4 &1802416974626590818 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 897326646ebb8a14c9f740e52f130735,
