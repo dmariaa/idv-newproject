@@ -19893,6 +19893,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 654955084}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &655142994 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6196305968765431877, guid: b3417a39aa4173d4f8c3d1db4ada3bfb,
+    type: 3}
+  m_PrefabInstance: {fileID: 1833214168}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &655142998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655142994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7168e8e3bbc4b4fb51eb6953f510b85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &657584814 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c447ff444a5e24d42893eafc4f61c30f,
@@ -46053,6 +46071,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemiesKilledText: {fileID: 520824724}
   enemiesSpawnedText: {fileID: 1509097159}
+  playerLifeSlider: {fileID: 1734497776}
 --- !u!1001 &1569615832
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53473,7 +53492,8 @@ MonoBehaviour:
   enemyPrefab: {fileID: 2072047808366825311, guid: 760a18c7f0a7d8e48942a25a4bcf2209,
     type: 3}
   spawnRate: 10
-  spawnTime: 2
+  spawnTimeOut: 3
+  spawnTime: 3
   spawnRadius: 15
 --- !u!4 &1790121432
 Transform:
@@ -54681,7 +54701,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6196305968765431877, guid: b3417a39aa4173d4f8c3d1db4ada3bfb,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 655142998}
   m_SourcePrefab: {fileID: 100100000, guid: b3417a39aa4173d4f8c3d1db4ada3bfb, type: 3}
 --- !u!4 &1834650348 stripped
 Transform:
