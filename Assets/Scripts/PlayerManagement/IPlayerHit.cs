@@ -22,30 +22,10 @@
 // SOFTWARE.
 #endregion
 
-using UnityEngine;
-
-namespace EnemiesManagement
+namespace PlayerManagement
 {
-    public class EnemyMovement : MonoBehaviour
+    public interface IPlayerHit
     {
-        public float speed;
-        
-        private Animator _animator;
-        private Transform _playerTransform;
-        
-        private static readonly int Velocity = Animator.StringToHash("velocity");
-
-        private void Awake()
-        {
-            _playerTransform = GameObject.FindWithTag("Player").transform;
-            _animator = GetComponentInChildren<Animator>();
-        }
-
-        private void Update()
-        {
-            transform.LookAt(_playerTransform);
-            transform.position += transform.forward * (speed * Time.deltaTime);
-            _animator.SetFloat(Velocity, 1.0f);
-        }
+        public void Hit();
     }
 }

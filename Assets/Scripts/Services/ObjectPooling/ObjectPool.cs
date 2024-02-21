@@ -29,22 +29,32 @@ namespace Services.ObjectPooling
 {
     public class ObjectPool : IObjectPool
     {
+        public int ActiveObjects => _activeObjects;
+        public int TotalObjects => _pool.Count;
+        
         private List<IPooleableObject> _pool;
-        private int _numberOfObjects;
+        private int _initialNumberOfObjects;
+        private int _activeObjects;
+        
         private IPooleableObject _pooleableObjectPrototype;
-
-        public ObjectPool()
+        
+        #region IService Implementation
+        public bool IsSingleton => false;
+        
+        public void Initialize()
         {
             _pool = new List<IPooleableObject>();
-            _numberOfObjects = 0;
+            _initialNumberOfObjects = 0;
         }
+        #endregion
 
-        public void Initialize(IPooleableObject pooleableObject, int initialNumberOfObjects)
+        #region IObjectPool Implementation
+        public void InitializePool(IPooleableObject pooleableObject, int initialNumberOfObjects)
         {
-            _numberOfObjects = initialNumberOfObjects;
+            _initialNumberOfObjects = initialNumberOfObjects;
             _pooleableObjectPrototype = pooleableObject;
             
-            for (int i = 0; i < _numberOfObjects; i++)
+            for (int i = 0; i < _initialNumberOfObjects; i++)
             {
                 IPooleableObject obj = _pooleableObjectPrototype.Generate();
                 obj.Available = true;
@@ -62,14 +72,17 @@ namespace Services.ObjectPooling
                 _pool.Add(pooleableObject);
             }
 
+            _activeObjects++;
             pooleableObject.Available = false;
             return pooleableObject;
         }
 
         public void Return(IPooleableObject pooleableObject)
         {
+            _activeObjects--;
             pooleableObject.Reset();
             pooleableObject.Available = true;
         }
+        #endregion
     }
 }
