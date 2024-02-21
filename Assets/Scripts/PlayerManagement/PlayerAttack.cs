@@ -23,6 +23,7 @@
 #endregion
 
 using System;
+using Services;
 using Services.ObjectPooling;
 using UnityEngine;
 using WeaponsManagement;
@@ -38,7 +39,7 @@ namespace PlayerManagement
         private Transform _crosshair;
         private Transform _bulletSpawnPoint;
         
-        private ObjectPool _bulletPool;
+        private IObjectPool _bulletPool;
         private float _lastAttackTime;
         private bool _fire;
 
@@ -46,9 +47,10 @@ namespace PlayerManagement
         {
             _crosshair = GetComponent<PlayerMovement>().crosshair.transform;
             _bulletSpawnPoint = transform.Find("bullet_spawn_point");
+
+            _bulletPool = ServiceLocator.Instance.GetService<IObjectPool>();
+            _bulletPool.InitializePool(bulletPrefab.GetComponent<IBullet>(), 300);
             
-            _bulletPool = new ObjectPool();
-            _bulletPool.Initialize(bulletPrefab.GetComponent<IBullet>(), 300);
             _lastAttackTime = Time.time;
         }
         

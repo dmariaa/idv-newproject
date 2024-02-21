@@ -22,13 +22,11 @@
 // SOFTWARE.
 #endregion
 
-using WeaponsManagement;
-
 namespace Services.ObjectPooling
 {
-    public interface IObjectPool
+    public interface IObjectPool : IService
     {
-        public void Initialize(IPooleableObject pooleableObject, int initialNumberOfObjects);
+        public void InitializePool(IPooleableObject pooleableObject, int initialNumberOfObjects);
         public IPooleableObject Get();
         public void Return(IPooleableObject pooleableObject);
     }

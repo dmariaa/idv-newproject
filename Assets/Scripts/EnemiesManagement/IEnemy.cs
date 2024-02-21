@@ -22,9 +22,12 @@
 // SOFTWARE.
 #endregion
 
+using EnemiesManagement.EnemyIA;
+using Services.ObjectPooling;
+
 namespace EnemiesManagement
 {
-    public interface IEnemy
+    public interface IEnemy : IPooleableObject, IEnemyContext
     {
         public bool Hit();
         public event System.Action<IEnemy> OnEnemyDestroyed;

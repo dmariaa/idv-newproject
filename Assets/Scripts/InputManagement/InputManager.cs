@@ -7,7 +7,7 @@ namespace InputManagement
 {
     public class InputManager : MonoBehaviour
     {
-        public CommandInvoker _commandInvoker;
+        private CommandInvoker _commandInvoker;
         
         private WalkCommand _walkCommand;
         private RunCommand _runCommand;
@@ -32,7 +32,7 @@ namespace InputManagement
         {
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
-
+            
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 _runCommand.Horizontal = horizontal;

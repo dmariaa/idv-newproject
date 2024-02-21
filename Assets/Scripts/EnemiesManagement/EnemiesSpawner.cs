@@ -23,6 +23,8 @@
 #endregion
 
 using System;
+using Services;
+using Services.GamePlayManagement;
 using Services.ObjectPooling;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -33,22 +35,38 @@ namespace EnemiesManagement
     {
         public GameObject enemyPrefab;
         public float spawnRate = 10f;
+        public float spawnTimeOut = 5f;
         public float spawnTime = 5f;
         public float spawnRadius = 20f;
-        
-        private ObjectPool _enemyPool;
+
+        public event Action<EnemiesSpawner> OnEnemySpawned;
+        public event Action<EnemiesSpawner> OnEnemyDestroyed;
+
+        private IObjectPool _enemyPool;
         private Transform _playerTransform;
         private float _lastSpawnTime;
+        private float _waveSpawnTimeOut;
+        
+        private IGameStats _gameStats;
         
         public void Awake()
         {
-            _enemyPool = new ObjectPool();
-            _enemyPool.Initialize(enemyPrefab.GetComponent<IPooleableObject>(), 200);
+            _enemyPool = ServiceLocator.Instance.GetService<IObjectPool>();
+            _enemyPool.InitializePool(enemyPrefab.GetComponent<IPooleableObject>(), 200);
             _playerTransform = GameObject.FindWithTag("Player").transform;
+            _gameStats = ServiceLocator.Instance.GetService<IGameStats>();
+            _waveSpawnTimeOut = 0;
         }
 
         private void Update()
         {
+            if (_waveSpawnTimeOut <= spawnTimeOut)
+            {
+                _waveSpawnTimeOut += Time.deltaTime;
+                _lastSpawnTime = Time.time - spawnTime;
+                return;
+            }
+            
             if (Time.time - _lastSpawnTime >= spawnTime)
             {
                 _lastSpawnTime = Time.time;
@@ -60,16 +78,37 @@ namespace EnemiesManagement
         {
             for(int i = 0; i < spawnRate; i++)
             {
-                Enemy enemy = _enemyPool.Get() as Enemy;
-                Vector2 startPoint = Random.insideUnitCircle.normalized * spawnRadius;
-                enemy.OnEnemyDestroyed += OnEnemyDestroyed;
-                enemy.transform.position = new Vector3(startPoint.x, 0, startPoint.y) + _playerTransform.position;
+                SpawnEnemy();
             }
         }
 
-        private void OnEnemyDestroyed(IEnemy obj)
+        public void SpawnEnemy()
+        {
+            Vector2 startPoint;
+            int maxTries = 10;
+            var position = _playerTransform.position;
+            
+            do
+            {
+                startPoint = Random.insideUnitCircle.normalized * spawnRadius 
+                             + new Vector2(position.x, position.z);
+
+                if (maxTries-- < 0)
+                    return;
+            } while(Mathf.Abs(startPoint.x) >= 48f || Mathf.Abs(startPoint.y) >= 48f);
+            
+            Enemy enemy = _enemyPool.Get() as Enemy;
+            enemy.OnEnemyDestroyed += OnEnemyDestroyed_Listener;
+            enemy.transform.position = new Vector3(startPoint.x, 0, startPoint.y);
+            OnEnemySpawned?.Invoke(this);
+            _gameStats.EnemiesSpawned.Value++;
+        }
+
+        private void OnEnemyDestroyed_Listener(IEnemy obj)
         {
             _enemyPool.Return(obj as IPooleableObject);
+            OnEnemyDestroyed?.Invoke(this);
+            _gameStats.EnemiesKilled.Value++;
         }
     }
 }

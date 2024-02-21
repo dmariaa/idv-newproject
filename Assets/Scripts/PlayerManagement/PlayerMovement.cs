@@ -22,7 +22,6 @@
 // SOFTWARE.
 #endregion
 
-using System;
 using UnityEngine;
 
 namespace PlayerManagement
